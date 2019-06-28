@@ -1,0 +1,77 @@
+{
+    "scopeName": "source.rvt",
+    "patterns": [
+        {
+            "include": "#block-expression"
+        },
+        {
+            "include": "#comment-expression"
+        }
+    ],
+    "repository": {
+        "block-expression": {
+            "name": "meta.function.block",
+            "begin": "^\\s*([a-zA-Z_][a-zA-Z_0-9]*)",
+            "end": "[^\\\\]\\s*\\n$",
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.name.type.block"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#dict-expression"
+                },
+                {
+                    "include": "#comment-expression"
+                },
+                {
+                    "include": "#linecontinuation"
+                }
+            ]
+        },
+        "linecontinuation": {
+            "match": "\\\\$",
+            "name": "punctuation.seperator.continuation.line"
+        },
+        "comment-expression": {
+            "begin": "#",
+            "end": "\\n",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.comment"
+                }
+            },
+            "name": "comment.line.number-sign",
+            "patterns": [
+                {
+                    "include": "#requirement-id"
+                }
+            ]
+        },
+        "requirement-id": {
+            "match": "\\$[^\\s]+",
+            "name": "keyword.codetag.notation.requirementid"
+        },
+        "dict-expression": {
+            "begin": "\\{",
+            "end": "\\}",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.dict.open"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.dict.close"
+                }
+            },
+            "name": "expression.group",
+            "patterns": [
+                {
+                    "include": "#block-expression"
+                }
+            ]
+        }
+    }
+}
