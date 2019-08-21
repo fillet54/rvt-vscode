@@ -1,8 +1,13 @@
 {
-	"name": "rvt",
-	"displayName": "rvt-vscode",
-	"description": "Language support for RVT",
+	"name": "rvt-automation",
+	"displayName": "RVT",
+	"description": "Language support for RVT automation script format",
 	"version": "0.0.1",
+	"publisher": "fillet54",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fillet54/rvt-vscode.git"
+	},
 	"engines": {
 		"vscode": "^1.35.0"
 	},
@@ -10,15 +15,42 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld",
+		"onCommand:extension.executeBlock",
+		"onCommand:extension.restartLanguageServer",
 		"onLanguage:rvt"
 	],
 	"main": "./extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "RVT",
+			"properties": {
+				"RVT.automationPath": {
+					"type": "string",
+					"scope": "window",
+					"description": "Path to automation framework"
+				},
+				"RVT.languageServerPackage": {
+					"type": "string",
+					"scope": "window",
+					"default": "rvt_language_server",
+					"description": "RVT Language Server Package"
+				},
+				"RVT.pythonPath": {
+					"type": "string",
+					"scope": "window",
+					"default": "${workspaceFolder}/../automation-v2/.venv/Scripts/python.exe",
+					"description": "Path to automation framework"
+				}
+			}
+		},
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.executeBlock",
+				"title": "RVT: Execute Block"
+			},
+			{
+				"command": "extension.restartLanguageServer",
+				"title": "RVT: Restart Language Server"
 			}
 		],
 		"languages": [
@@ -46,10 +78,15 @@
 		"test": "node ./node_modules/vscode/bin/test"
 	},
 	"devDependencies": {
-		"typescript": "^3.3.1",
-		"vscode": "^1.1.28",
-		"eslint": "^5.13.0",
+		"@types/mocha": "^2.2.42",
 		"@types/node": "^10.12.21",
-		"@types/mocha": "^2.2.42"
+		"eslint": "^5.13.0",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"hasbin": "^1.2.3",
+		"lodash.clonedeep": "^4.5.0",
+		"vscode-languageclient": "^5.2.1"
 	}
 }
